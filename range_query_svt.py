@@ -1,7 +1,7 @@
 from basic_dp import LaplaceMechanism
 import numpy as np
 import pandas as pd
-
+from parallel_composition import parallel_composition_top_k
 
 def age_range_query(df, lower, upper):
     df1 = df[df['Age'] > lower]
@@ -88,6 +88,64 @@ def range_query_svt(queries, query_ranges, df, c, T, epsilon):
     
     return results
 
+def heavy_hitters_example():
+    """
+    Heavy Hitters Example: Find top web pages using parallel composition.
+    Given 10,000 web pages, find the noisy top 10 using parallel composition.
+    """
+    print("\n" + "="*60)
+    print("HEAVY HITTERS EXAMPLE: Top Web Pages")
+    print("="*60)
+    
+    # Generate synthetic web traffic data
+    np.random.seed(42)
+    
+    # Create 10,000 web pages with different popularity distributions
+    web_pages = []
+    true_traffic = []
+    
+    # Top 50 pages: Very popular (Zipf-like distribution)
+    for i in range(50):
+        page_name = f"popular-site-{i+1}.com"
+        traffic = int(np.random.exponential(10000) + 5000)  # High traffic
+        web_pages.append(page_name)
+        true_traffic.append(traffic)
+    
+    # Next 950 pages: Moderately popular
+    for i in range(950):
+        page_name = f"medium-site-{i+1}.com"
+        traffic = int(np.random.exponential(2000) + 500)  # Medium traffic
+        web_pages.append(page_name)
+        true_traffic.append(traffic)
+    
+    # Remaining 9000 pages: Low traffic
+    for i in range(9000):
+        page_name = f"small-site-{i+1}.com"
+        traffic = int(np.random.exponential(100) + 10)  # Low traffic
+        web_pages.append(page_name)
+        true_traffic.append(traffic)
+    
+    # Create DataFrame
+    web_data = pd.DataFrame({
+        'page': web_pages,
+        'traffic': true_traffic
+    })
+    
+    # Sort by true traffic to see actual top 10
+    web_data_sorted = web_data.sort_values('traffic', ascending=False)
+    
+    print("True Top 10 Web Pages (by traffic):")
+    for i, row in web_data_sorted.head(10).iterrows():
+        print(f"{row['page']}: {row['traffic']:,} visits")
+    
+    # Use parallel composition to get noisy top 10
+    print(f"\nUsing Parallel Composition for Private Top 10 (epsilon=1.0):")
+    top_10_private = parallel_composition_top_k(web_data, k=10, epsilon=1.0)
+    
+    print("Private Top 10 Web Pages (with noise):")
+    for i, (page, noisy_traffic) in enumerate(top_10_private, 1):
+        print(f"{i}. {page}: {noisy_traffic:.0f} visits")
+
 # Example usage and test
 if __name__ == "__main__":
     # Create sample data
@@ -131,3 +189,5 @@ if __name__ == "__main__":
     for age_range, noisy_count in svt_results_2:
         lower, upper = age_range
         print(f"Ages {lower}-{upper-1}: {noisy_count:.2f} people")
+        
+    heavy_hitters_example()
