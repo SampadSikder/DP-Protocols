@@ -4,7 +4,7 @@ from scipy import stats
 import math
 from collections import defaultdict, Counter
 import warnings
-from basic_dp import LaplaceMechanism, GaussianMechanism
+from noise.basic_dp import LaplaceMechanism, GaussianMechanism
 warnings.filterwarnings('ignore')
 
 class RatioTestDP:

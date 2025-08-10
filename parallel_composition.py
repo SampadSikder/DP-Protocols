@@ -1,4 +1,4 @@
-from basic_dp import LaplaceMechanism
+from noise.basic_dp import LaplaceMechanism
 import numpy as np
 import pandas as pd
 
