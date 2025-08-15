@@ -37,7 +37,7 @@ class OUE:
             Tuple of (p, q) probabilities
         """
         exp_eps = np.exp(self.epsilon)
-        p = 1.0 / (1.0 + exp_eps)
+        p = 0.5
         q = 1.0 / (1.0 + exp_eps)
         return p, q
     
@@ -144,7 +144,7 @@ def demonstrate_oue():
     # Parameters
     d = 10  # Domain size
     epsilon = 1.0  # Privacy budget
-    n_users = 1000  # Number of users
+    n_users = 10000  # Number of users
     
     # Initialize OUE
     oue = OUE(d, epsilon)
