@@ -20,7 +20,7 @@ class AdaptivePatternAttack:
             ldp_mechanism: LDP mechanism instance (OUE, OLH)
             target_item: Item to boost (0 to d-1)
             m_fake_users: Number of fake users to inject
-            protocol_type: String specifying the protocol ('OUE', 'OLH') mpt for GRR
+            protocol_type: String specifying the protocol ('OUE', 'OLH') not for GRR
         """
         self.ldp_mechanism = ldp_mechanism
         self.target_item = target_item
@@ -132,8 +132,6 @@ class AdaptivePatternAttack:
             return self._generate_fake_reports_oue()
         elif self.protocol_type == 'OLH':
             return self._generate_fake_reports_olh()
-        elif self.protocol_type == 'GRR':
-            return self._generate_fake_reports_grr()
         else:
             raise ValueError(f"Fake report generation not implemented for {self.protocol_type}")
         
