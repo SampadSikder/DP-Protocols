@@ -24,7 +24,7 @@ class GeneralizedRandomizedResponse:
         print(f"Probability of reporting true value: {self.p:.4f}")
         print(f"Probability of reporting each other value: {self.q:.4f}")
     
-    def privatize_value(self, true_value: int) -> int:
+    def privatize(self, true_value: int) -> int:
         """
         Apply GRR mechanism to a single value.
         """
