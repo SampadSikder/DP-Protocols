@@ -40,9 +40,9 @@ class GeneralizedRandomizedResponse:
     
     
     def privatize_dataset(self, data: List[int]) -> List[int]:
-        perturbed_vector = [self.privatize_value(val) for val in data]
+        perturbed_vector = [self.privatize(val) for val in data]
         print(f"Privatized dataset: {perturbed_vector[:10]}... (showing first 10 samples)")
-        return [self.privatize_value(val) for val in data]
+        return [self.privatize(val) for val in data]
 
     
     def estimate_distribution(self, privatized_data: List[int]) -> np.ndarray:
