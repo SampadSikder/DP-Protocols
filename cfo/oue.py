@@ -37,7 +37,7 @@ class OUE:
             Tuple of (p, q) probabilities
         """
         exp_eps = np.exp(self.epsilon)
-        p = 0.5
+        p = 1 / 2
         q = 1.0 / (1.0 + exp_eps)
         return p, q
     

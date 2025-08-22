@@ -199,15 +199,6 @@ class AdaptivePatternAttack:
     
     
     def execute_attack(self, legitimate_data: Union[List[np.ndarray], List[Dict[str, int]], List[int]]) -> Union[List[np.ndarray], List[Dict[str, int]], List[int]]:
-        """
-        Execute the APA attack by injecting fake users
-        
-        Args:
-            legitimate_data: List of legitimate reports
-            
-        Returns:
-            Combined dataset with fake users injected
-        """
         fake_reports = self.generate_fake_reports()
         
         print(f"\nGenerated {len(fake_reports)} fake reports for {self.protocol_type}")
